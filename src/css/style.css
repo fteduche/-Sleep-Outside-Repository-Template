@@ -175,6 +175,11 @@ button {
   padding: 0.5em;
   border: 1px solid var(--light-grey);
   max-width: 250px;
+
+  /* new styles for assignment */
+  background-color: #fffaf0; /* light cream background */
+  border-radius: 10px;       /* rounded corners */
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.1); /* soft shadow */
 }
 
 .product-card h2,
@@ -261,3 +266,4 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+

@@ -7,7 +7,7 @@ loadHeaderFooter();
 
 // Get the category parameter from the URL 
 // The URL will look like: product_listing/index.html?category=tents
-const category = getParam('category');
+const category = getParam('category').toLowerCase();
 
 // --- Step 8: Fix the title ---
 // Get the page title element
@@ -32,10 +32,10 @@ if (category) {
 const dataSource = new ProductData();
 
 // Get the element where the product list will be rendered
-const listElement = document.querySelector('.product-list');
+const element = document.querySelector('.product-list');
 
 // Create an instance of the ProductList class, passing the category, data source, and rendering element (Step 5)
-const myList = new ProductList(category, dataSource, listElement);
+const myList = new ProductList(category, dataSource, element);
 
 // Call the init method to fetch and display the products (Step 5)
 myList.init();

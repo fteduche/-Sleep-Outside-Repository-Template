@@ -1,10 +1,14 @@
 import { renderListWithTemplate } from "./utils.mjs";
 
 function productCardTemplate(product) {
+    // Step 7: Fix the image path to use PrimaryMedium from API data
+    const imagePath = product.Images.PrimaryMedium;
+
+    // Fix the product detail link to use the 'product' parameter
     return `
     <li class="product-card">
-      <a href="product_pages/?products=${product.Id}">
-        <img src="${product.Image}" alt="${product.Name}">
+      <a href="../product_listing.html?product=${product.Id}">
+        <img src="${imagePath}" alt="Image of ${product.Name}">
         <h2>${product.Brand.Name}</h2>
         <h3>${product.NameWithoutBrand}</h3>
         <p class="product-card__price">$${product.FinalPrice}</p>
@@ -21,17 +25,12 @@ export default class ProductList {
     }
 
     async init() {
-        const list = await this.dataSource.getData();
+        // Step 4.6: Change the call to pass 'this.category' to the refactored getData
+        const list = await this.dataSource.getData(this.category);
         this.renderList(list);
     }
 
     renderList(list) {
-        // const htmlStrings = list.map(productCardTemplate);
-        // this.listElement.insertAdjacentHTML("afterbegin", htmlStrings.join(""));
-
-        // apply use new utility function instead of the commented code above
         renderListWithTemplate(productCardTemplate, this.listElement, list);
-
     }
-
 }

@@ -1,18 +1,18 @@
 import { renderWithTemplate, loadTemplate } from './utils.mjs';
 
 export default class ProductDetails {
-    constructor(productId, dataSource) {
-        this.productId = productId;
-        this.dataSource = dataSource;
-        this.product = {};
-    }
+  constructor(productId, dataSource) {
+    this.productId = productId;
+    this.dataSource = dataSource;
+    this.product = {};
+  }
 
-    productTemplate(product) {
-        // Fix the image path to use PrimaryLarge from the API data (Step 7) 
-        const imagePath = product.Images.PrimaryLarge;
+  productTemplate(product) {
+    // Fix the image path to use PrimaryLarge from the API data (Step 7) 
+    const imagePath = product.Images.PrimaryLarge;
 
-        // Return the HTML string
-        return `<section class="product-detail">
+    // Return the HTML string
+    return `<section class="product-detail">
           <h2>${product.Brand.Name}</h2>
           <h3 class="divider">${product.Name}</h3>
           <img
@@ -29,22 +29,22 @@ export default class ProductDetails {
             <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
           </div>
         </section>`;
-    }
+  }
 
-    async init() {
-        this.product = await this.dataSource.findProductById(this.productId);
+  async init() {
+    this.product = await this.dataSource.findProductById(this.productId);
 
-        const parentElement = document.querySelector('main');
+    const parentElement = document.querySelector('main');
 
-        //FIX: Use innerHTML to insert the template. 
-        // If your 'renderWithTemplate' utility function is causing the error, 
-        // removing it and using direct innerHTML often resolves the CSP violation
-        // that sometimes occurs with complex template handling utilities.
-        parentElement.innerHTML = this.productTemplate(this.product);
+    //FIX: Use innerHTML to insert the template. 
+    // If your 'renderWithTemplate' utility function is causing the error, 
+    // removing it and using direct innerHTML often resolves the CSP violation
+    // that sometimes occurs with complex template handling utilities.
+    parentElement.innerHTML = this.productTemplate(this.product);
 
-        // Update the document title 
-        document.querySelector('title').textContent = `Sleep Outside | ${this.product.Name}`;
+    // Update the document title 
+    document.querySelector('title').textContent = `Sleep Outside | ${this.product.Name}`;
 
-        // The event listener is attached in product.js, so we don't need to return it here.
-    }
+    // The event listener is attached in product.js, so we don't need to return it here.
+  }
 }
